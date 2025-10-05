@@ -1,2 +1,2 @@
 Portfolio repository.
-Based on the [Millenial] jekyll-theme by LeNPaul (https://github.com/LeNPaul/Millennial)
+Based on the [Millenial](https://github.com/LeNPaul/Millennial) jekyll-theme by LeNPaul
