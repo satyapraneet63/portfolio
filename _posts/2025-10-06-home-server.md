@@ -4,7 +4,7 @@ title: "Home Server"
 author: "Satya Praneet Challapilla"
 categories: facts
 tags: [documentation, self-hosting, diy]
-image: bobby.png
+image: raspi.JPEG
 ---
 
 ## Homelab & Self-Hosting
