@@ -5,15 +5,22 @@ $base-font-family: 'JetBrains Mono', monospace;
 $body-font-family: 'JetBrains Mono', monospace;
 $code-font-family: "Source Code Pro", monospace;
 
-$brand-color: black;
+/*$brand-color: black;*/
 
+$body-background: #272822;
+$text-color: #F8F8F2;
+$brand-color: #F92672;
+$link-color: #66D9EF;
+$code-font-color: #A6E22E;
+$post-background: #3E3D32;
+$title-color: #E6DB74;
 $container-width: 1100px;
 $tablet-width: 600px;
 $phone-width: 480px;
 
 $header-thickness: 56px;
 
-$icon-transition-time: 1.0s;
+$icon-transition-time: 0.5s;
 $envelope-color: #f39c12;
 $twitter-color: #00aced;
 $instagram-color: #375989;
@@ -27,3 +34,72 @@ $codepen-color: black;
 $rss-color: #ff6600;
 
 @import "-sections-dir";
+
+body, html {
+  background-color: $body-background;
+  color: $text-color;
+}
+
+a {
+  color: $link-color;
+}
+
+a:hover {
+  color: lighten($link-color, 20%);
+}
+
+.post-container {
+  background-color: $post-background;
+}
+
+.post-content h1 {
+  color: $link-color;
+}
+
+code, pre {
+  color: $code-font-color;
+}
+
+.site-header {
+  background-color: $body-background;
+}
+
+.site-title a {
+  color: $title-color;
+}
+.site-header a.menu-link {
+  color: $brand-color;
+}
+
+.site-footer {
+  background-color: $body-background;
+  color: $text-color;
+}
+
+.footer {
+  background-color: $body-background;
+}
+
+
+@media (max-width: 768px) {
+
+.dropbtn, .dropbtn:hover, .dropbtn:focus, .dropbtn:active {
+  background-color: $body-background;
+}
+
+.dropbtn::before, .dropbtn::after, .dropbtn span {
+  background-color: $text-color;
+}
+.dropdown-content{
+  background-color: $body-background;
+}
+
+.dropdown-content a {
+  color: $link-color;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+  background-color: $post-background;
+  color: lighten($brand-color, 20%)
+}
+}
