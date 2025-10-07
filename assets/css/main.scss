@@ -17,6 +17,7 @@ $title-color: #E6DB74;
 $container-width: 1100px;
 $tablet-width: 600px;
 $phone-width: 480px;
+$post-title-color: #AE81FF;
 
 $header-thickness: 56px;
 
@@ -53,7 +54,7 @@ a:hover {
 }
 
 .post-content h1 {
-  color: $link-color;
+  color: $post-title-color;
 }
 
 code, pre {
