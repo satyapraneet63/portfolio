@@ -58,3 +58,26 @@ New spine, replacing the Millennial demo structure:
   Interests ahead of Resumé / Contact.
 - Verified via local build: all pages resolve, nav renders, collection/permalink/entry
   pipeline works end-to-end (tested with `log-project.html`'s category filter).
+
+### [From Studio] Homepage confirmation (2026-07-23)
+
+Custom-theme work is still pending — homepage doesn't need visual polish yet, just
+get the links/structure right. Applies to the still-open homepage gap noted above.
+
+### [From Workshop] Bug fix: header overlapping content (2026-07-23)
+
+Adding 5 nav items (7 total + 4 social icons) broke `_sass/_header.scss`: `.site-header`
+was `position: fixed` with a hardcoded `min-height: 56px`, and `_default.scss` offset
+`.content-wrapper` by a matching magic-number `padding-top`. Once the nav no longer fit
+on one line, the floated (uncleared) nav overflowed past that assumed height and
+visually covered every page's heading.
+
+Fix: removed `position: fixed` from `.site-header` so it sits in normal document flow;
+removed the `$header-thickness`-based padding-top hack from `.content-wrapper` in favor
+of a plain `20px`. Content now always starts after however tall the header actually
+renders — robust to nav growing further (e.g. the tag system planned for later). This
+was a correctness fix, not the deferred visual polish — header may still look
+cramped/plain, that's expected until the custom theme lands.
+
+Still open: the homepage-content decision noted above (now confirmed low-priority on
+looks, just needs the right links wired in whenever that's picked up).
