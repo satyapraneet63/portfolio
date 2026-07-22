@@ -1,9 +1,7 @@
 ---
-layout: post
-title: "Art"
-author: "Satya Praneet Challapilla"
-categories: facts
-tags: [documentation, art, painting, murals]
+layout: page
+title: Art
+permalink: /art
 image: mural1.JPEG
 ---
 

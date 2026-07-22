@@ -11,6 +11,11 @@ menu:
 #- {name: 'Learning Resources', url: 'resources'}
 #- {name: 'Sample Posts',       url: 'sample-posts'}
 #- {name: 'Documentation',      url: 'documentation'}
+- {name: 'Who I Am',           url: 'who-i-am'}
+- {name: 'Log',                url: 'log'}
+- {name: 'Art',                url: 'art'}
+- {name: 'No Fixed Point',     url: 'no-fixed-point'}
+- {name: 'Interests',          url: 'interests'}
 - {name: 'Resumé',              url: 'resume'}
 - {name: 'Contact',            url: 'contact'}
 

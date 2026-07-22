@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+<div class="page-content">
+  <h1>
+    {{ page.title }}
+  </h1>
+  <article>
+    {{ content }}
+  </article>
+
+  {% assign entries = site.log | sort: "date" | reverse %}
+  {% if entries.size > 0 %}
+    <section class="log-entries">
+      <h2>Recent entries</h2>
+      <ul>
+        {% for entry in entries limit:10 %}
+          <li>
+            <a href="{{ site.github.url }}{{ entry.url }}">{{ entry.title }}</a>
+            <time>{{ entry.date | date: "%B %-d, %Y" }}</time>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+</div>

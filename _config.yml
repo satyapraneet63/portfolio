@@ -9,6 +9,21 @@ highlighter:         rouge
 permalink:           /:title
 plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
 
+# Log: one entry per dated update, grouped by project via `categories`.
+# Each project's index page (e.g. pages/log/3d-printing.md) lists its own
+# entries by matching `page.category` against `entry.categories`.
+collections:
+  log:
+    output: true
+    permalink: /log/:categories/:year-:month-:day-:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "log"
+    values:
+      layout: "log-entry"
+
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           "Satya Praneet Challapilla"
 description:	       "A record of my interests and personality"

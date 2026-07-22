@@ -1,9 +1,8 @@
 ---
-layout: post
+layout: log-project
 title: "Home Server"
-author: "Satya Praneet Challapilla"
-categories: facts
-tags: [documentation, self-hosting, diy]
+category: home-server
+permalink: /log/home-server/
 image: raspi.JPEG
 ---
 
@@ -17,4 +16,3 @@ My unified docker compose can be found here: [repo](https://github.com/satyapran
 I use portainer to have a GUI for my containers.
 
 Going down this rabbit hole was the reason I elected to get a domain for myself and start a personal website.
-

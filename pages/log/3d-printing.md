@@ -1,9 +1,8 @@
 ---
-layout: post
-title: "3D Printer Customization"
-author: "Satya Praneet Challapilla"
-categories: 3D printer
-tags: [documentation, modding, customization, diy]
+layout: log-project
+title: "3D Printing"
+category: 3d-printing
+permalink: /log/3d-printing/
 image: 3dprinter.JPEG
 ---
 
