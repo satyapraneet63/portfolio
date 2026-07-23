@@ -81,3 +81,9 @@ cramped/plain, that's expected until the custom theme lands.
 
 Still open: the homepage-content decision noted above (now confirmed low-priority on
 looks, just needs the right links wired in whenever that's picked up).
+
+### [From Workshop] Content landed (2026-07-23)
+
+who-i-am, interests, and no-fixed-point now have real Studio-drafted content, pasted
+directly into the page files (front matter left as scaffolded). This supersedes the
+"placeholder"/"empty shell" notes above for these three pages.

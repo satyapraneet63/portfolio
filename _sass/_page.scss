@@ -1,6 +1,24 @@
 .page-content {
-  max-width: 600px;
+  max-width: 100%;
   display: block;
   margin: 10px auto 10px;
   padding: 0px 10px 10px;
+}
+.page-content > article > p,
+.page-content > article > h2,
+.page-content > article > h3,
+.page-content > article > h4,
+.page-content > article > ul,
+.page-content > article > ol,
+.page-content > article > dl,
+.page-content > article > blockquote {
+  max-width: 900px;
+  margin-left: 0;
+  margin-right: auto;
+}
+.page-content img {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  margin: 20px auto;
 }

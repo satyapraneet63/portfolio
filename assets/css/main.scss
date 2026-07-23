@@ -14,7 +14,8 @@ $link-color: #66D9EF;
 $code-font-color: #A6E22E;
 $post-background: #3E3D32;
 $title-color: #E6DB74;
-$container-width: 1100px;
+$container-width: clamp(1000px, 72vw, 1440px);
+$container-breakpoint: 1100px;
 $tablet-width: 600px;
 $phone-width: 480px;
 $post-title-color: #AE81FF;
@@ -71,6 +72,15 @@ code, pre {
 .site-header a.menu-link {
   color: $brand-color;
 }
+.site-header a.menu-link:hover {
+  color: lighten($brand-color, 15%);
+}
+.site-header a.menu-link.active {
+  color: $title-color;
+}
+.site-header a.social-link {
+  color: $link-color;
+}
 
 .site-footer {
   background-color: $body-background;
@@ -102,5 +112,9 @@ code, pre {
 .dropdown-content a:hover, .dropdown-content a:focus {
   background-color: $post-background;
   color: lighten($brand-color, 20%)
+}
+.dropdown-content a.active {
+  color: $title-color;
+  font-weight: bold;
 }
 }

@@ -14,12 +14,12 @@
   padding-top: 20px;
   margin: auto;
   display: block;
-  width: $container-width - 20px;
+  width: calc(100% - 20px);
 }
 .content-wrapper h1 {
   margin: 20px 0px 5px;
 }
-@media (max-width: $container-width) {
+@media (max-width: $container-breakpoint) {
   .container {
     width: 95vw;
     margin-left: auto;
