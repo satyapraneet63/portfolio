@@ -3,6 +3,7 @@ layout: page
 title: Art
 permalink: /art
 image: mural1.JPEG
+key: art
 ---
 
 ## Solo Mural in my bedroom - Visual design in my personal space

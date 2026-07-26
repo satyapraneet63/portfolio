@@ -2,26 +2,41 @@
 layout: default
 ---
 
-<div class="page-content">
-  <h1>
-    {{ page.title }}
-  </h1>
-  <article>
-    {{ content }}
-  </article>
+{% assign entries = site.log | where_exp: "entry", "entry.categories contains page.category" | sort: "date" | reverse %}
 
-  {% assign entries = site.log | where_exp: "entry", "entry.categories contains page.category" | sort: "date" | reverse %}
-  {% if entries.size > 0 %}
-    <section class="log-entries">
-      <h2>Entries</h2>
-      <ul>
-        {% for entry in entries %}
-          <li>
-            <a href="{{ site.github.url }}{{ entry.url }}">{{ entry.title }}</a>
-            <time>{{ entry.date | date: "%B %-d, %Y" }}</time>
-          </li>
-        {% endfor %}
-      </ul>
+<div class="content-layout">
+  <div class="page-content">
+    <h1>
+      {{ page.title }}
+    </h1>
+    <article>
+      {{ content }}
+    </article>
+
+    {% if entries.size > 0 %}
+      <section class="log-entries">
+        <h2>Entries</h2>
+        <ul>
+          {% for entry in entries %}
+            <li>
+              <a href="{{ site.github.url }}{{ entry.url }}">{{ entry.title }}</a>
+              <time>{{ entry.date | date: "%B %-d, %Y" }}</time>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  </div>
+
+  <aside class="sidebar">
+    <section class="sidebar-section project-stats">
+      <p>{{ entries.size }} {% if entries.size == 1 %}entry{% else %}entries{% endif %}</p>
+      {% if entries.size > 0 %}
+        <p class="date-range">{{ entries.last.date | date: "%B %Y" }}&ndash;{{ entries.first.date | date: "%B %Y" }}</p>
+      {% endif %}
     </section>
-  {% endif %}
+    <section class="sidebar-section back-link">
+      <a href="{{ site.github.url }}/log/">&larr; All projects</a>
+    </section>
+  </aside>
 </div>

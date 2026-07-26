@@ -1,0 +1,10 @@
+# Cross-link map for page.html's sidebar. Keys and values are page `key`
+# front-matter values (not URLs) — add a page's key here and give it a
+# `key:` field to wire it into the graph.
+who-i-am: [log, art, no-fixed-point, interests]
+log: [who-i-am]
+art: [who-i-am]
+no-fixed-point: [who-i-am]
+interests: [who-i-am]
+resume: []
+contact: []

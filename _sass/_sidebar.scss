@@ -1,0 +1,88 @@
+/*
+  Shared .content-layout / .sidebar structure used by page.html,
+  log-entry.html, log-project.html and log-index.html. Each layout
+  decides what goes in its own <aside>; this just handles the split.
+*/
+.content-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+.content-layout > .page-content,
+.content-layout > .post-content {
+  flex: 1;
+  min-width: 0;
+}
+.sidebar {
+  flex: 0 0 220px;
+  padding: 10px 0px 10px;
+  font-size: 0.85rem;
+}
+.sidebar-section {
+  margin-bottom: 25px;
+}
+.sidebar-section:empty {
+  display: none;
+}
+.sidebar-section h2 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+.sidebar-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sidebar-section li {
+  margin: 0 0 0.6rem;
+}
+.sidebar time {
+  display: block;
+  opacity: 0.7;
+  font-size: 0.85em;
+}
+.sidebar .categories {
+  opacity: 0.7;
+  margin: 0 0 0.6rem;
+}
+.entry-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: $container-breakpoint) {
+  .content-layout {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sidebar {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+/*
+  Homepage log teaser
+*/
+.log-teaser {
+  margin-top: 20px;
+  max-width: 900px;
+}
+.log-teaser ul {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+.log-teaser li {
+  margin-bottom: 0.75rem;
+}
+.log-teaser time {
+  display: inline-block;
+  opacity: 0.7;
+  font-size: 0.85em;
+  margin-left: 10px;
+}
+.log-teaser-link {
+  display: inline-block;
+}

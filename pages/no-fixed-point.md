@@ -2,6 +2,7 @@
 layout: page
 title: No Fixed Point
 permalink: /no-fixed-point
+key: no-fixed-point
 ---
 
 

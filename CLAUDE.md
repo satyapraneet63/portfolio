@@ -87,3 +87,48 @@ looks, just needs the right links wired in whenever that's picked up).
 who-i-am, interests, and no-fixed-point now have real Studio-drafted content, pasted
 directly into the page files (front matter left as scaffolded). This supersedes the
 "placeholder"/"empty shell" notes above for these three pages.
+
+## [From Studio] Sidebar/marginalia (2026-07-26)
+
+Approved (Workshop's proposal, two adjustments): build `page.html` cross-links now,
+data-driven from the start (not hardcoded — site's small enough that the setup cost is
+low and doing it twice would cost more overall); reserve the pulled-quotes slot in the
+layout but leave it unpopulated (Who I Am/Art/No Fixed Point still mid-rewrite, nothing
+stable to pull from); build the homepage "recent log entries" teaser first, as the
+highest-value piece of this round. `log-entry`/`log-project`/`log-index` sidebars
+built exactly as proposed, no changes.
+
+### [From Workshop] Implementation status (2026-07-26)
+
+- `.content-layout` (flex row, `.page-content`/`.post-content` + `<aside class="sidebar">`,
+  collapses to stacked below `$container-breakpoint`) now wraps `page.html`,
+  `log-entry.html`, `log-project.html`, `log-index.html`. Shared rules in new
+  `_sass/_sidebar.scss`, registered in `_-sections-dir.scss`.
+- Cross-link relationship map is data-driven: `_data/relationships.yml` maps a page's
+  `key` front-matter value to a list of related `key`s (hub-and-spoke — who-i-am links
+  out to log/art/no-fixed-point/interests, each of those links back to who-i-am; resume/
+  contact have none). Added `key:` to who-i-am, art, no-fixed-point, interests, resume,
+  contact, and `pages/log/index.md`. To add a new cross-linked page: give it a `key` and
+  add an entry to the yml — no template changes needed.
+- `page.html` sidebar: cross-links section (hidden via `:empty` CSS when a page has none,
+  e.g. resume/contact) plus an empty reserved `.pulled-quotes` section — present in markup,
+  invisible until populated, per the "reserve but don't populate" call above.
+- Removed the hardcoded "More: Log · Art · No Fixed Point · Interests" line from the end
+  of who-i-am.md — that's now the dynamic sidebar's job; leaving both would've duplicated it.
+- `log-entry.html` sidebar: date, categories, back-link to the parent project index
+  (matched via `page.category` on `site.pages`, same field `log-project.html` already
+  used), prev/next entry within the same category (computed via a single Liquid pass
+  over the category's entries sorted by date — no built-in `index_of` filter to lean on).
+- `log-project.html` sidebar: entry count + date range (from the already-computed
+  category-filtered `entries`), back-link to `/log/`.
+- `log-index.html` sidebar: alphabetical jump-list of all project pages
+  (`site.pages | where: "layout", "log-project"`) — doubles as sitewide log nav per the
+  proposal.
+- Homepage teaser (`_layouts/home.html`): last 5 `site.log` entries, newest first, with a
+  "See the full log" link; reuses the same Liquid pattern as `log-index.html`. Renders
+  nothing while `_log` is empty — verified by temporarily adding two dummy `_log` entries
+  locally, confirming teaser population, prev/next, and back-links all work, then
+  removing them (not committed).
+- Verified via local `bundle exec jekyll build`: all five touched layouts compile and
+  render correctly, sidebar gracefully empty/hidden where there's no data yet (e.g.
+  0-entry project stats, no-relations pages).

@@ -2,6 +2,7 @@
 layout: page
 title: Resumé
 permalink: /resume
+key: resume
 ---
 
 You can view my resumé below, or [click here to download it](../assets/resume.pdf).

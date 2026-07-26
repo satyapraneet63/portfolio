@@ -3,6 +3,7 @@ layout: page
 title: Who I Am
 permalink: /who-i-am
 image: bobby.png
+key: who-i-am
 ---
 
 I'm Praneet. Engineer by degree, tinkerer by temperament. This September I move to London for an MSc in Creative Robotics at UAL.
@@ -20,7 +21,3 @@ Trying to work out what came next, I sat the design school exams — NIFT gave m
 If there's a pattern to all of this, it's that I like systems other people built — Klipper firmware, fantasy worlds with ten thousand years of history, game rulesets, painting techniques — and I like learning them deeply enough to work inside them well. I'm not an inventive artist or a visionary engineer. I'm thorough, and I finish the rabbit holes I fall into. More on that in [Interests](/interests).
 
 As for where I'm from: [nowhere in particular](/no-fixed-point), which is its own story.
-
----
-
-More: [Log](/log/) · [Art](/art) · [No Fixed Point](/no-fixed-point) · [Interests](/interests)

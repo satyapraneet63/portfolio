@@ -7,5 +7,21 @@ title: Home
   <article>
     {{ content }}
   </article>
+
+  {% assign log_entries = site.log | sort: "date" | reverse %}
+  {% if log_entries.size > 0 %}
+    <section class="log-teaser">
+      <h2>From the Log</h2>
+      <ul>
+        {% for entry in log_entries limit:5 %}
+          <li>
+            <a href="{{ site.github.url }}{{ entry.url }}">{{ entry.title }}</a>
+            <time>{{ entry.date | date: "%B %-d, %Y" }}</time>
+          </li>
+        {% endfor %}
+      </ul>
+      <a href="{{ site.github.url }}/log/" class="log-teaser-link">See the full log &rarr;</a>
+    </section>
+  {% endif %}
 </div>
 

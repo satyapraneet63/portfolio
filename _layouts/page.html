@@ -2,11 +2,33 @@
 layout: default
 ---
 
-<div class="page-content">
-  <h1>
-    {{ page.title }}
-  </h1>
-  <article>
-    {{ content }}
-  </article>
+<div class="content-layout">
+  <div class="page-content">
+    <h1>
+      {{ page.title }}
+    </h1>
+    <article>
+      {{ content }}
+    </article>
+  </div>
+
+  <aside class="sidebar">
+    {% assign related_keys = site.data.relationships[page.key] %}
+    {% if related_keys and related_keys.size > 0 %}
+      <section class="sidebar-section cross-links">
+        <h2>More</h2>
+        <ul>
+          {% for key in related_keys %}
+            {% assign related = site.pages | where: "key", key | first %}
+            {% if related %}
+              <li><a href="{{ site.github.url }}{{ related.url }}">{{ related.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+    {% comment %} Reserved for pulled quotes once Who I Am/Art/No Fixed Point content is stable. {% endcomment %}
+    <section class="sidebar-section pulled-quotes"></section>
+  </aside>
 </div>

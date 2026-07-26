@@ -2,16 +2,59 @@
 layout: default
 ---
 
-<div class="post-content">
-  <h1>
-    {{ page.title }}
-  </h1>
-  {% if page.image %}
-    <div class="featured-image">
-      <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
-    </div>
+{% assign category = page.categories | first %}
+{% assign project = site.pages | where: "category", category | first %}
+{% assign siblings = site.log | where_exp: "e", "e.categories contains category" | sort: "date" %}
+{% assign prev_entry = nil %}
+{% assign next_entry = nil %}
+{% assign found = false %}
+{% for entry in siblings %}
+  {% if found %}
+    {% assign next_entry = entry %}
+    {% break %}
   {% endif %}
-  <article>
-    {{ content }}
-  </article>
+  {% if entry.url == page.url %}
+    {% assign found = true %}
+  {% else %}
+    {% assign prev_entry = entry %}
+  {% endif %}
+{% endfor %}
+
+<div class="content-layout">
+  <div class="post-content">
+    <h1>
+      {{ page.title }}
+    </h1>
+    {% if page.image %}
+      <div class="featured-image">
+        <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
+      </div>
+    {% endif %}
+    <article>
+      {{ content }}
+    </article>
+  </div>
+
+  <aside class="sidebar">
+    <section class="sidebar-section entry-meta">
+      <time>{{ page.date | date: "%B %-d, %Y" }}</time>
+      {% if page.categories.size > 0 %}
+        <p class="categories">{{ page.categories | join: ", " }}</p>
+      {% endif %}
+      {% if project %}
+        <a href="{{ site.github.url }}{{ project.url }}">&larr; Back to {{ project.title }}</a>
+      {% endif %}
+    </section>
+
+    {% if prev_entry or next_entry %}
+      <section class="sidebar-section entry-nav">
+        {% if prev_entry %}
+          <a href="{{ site.github.url }}{{ prev_entry.url }}" class="prev-entry">&larr; {{ prev_entry.title }}</a>
+        {% endif %}
+        {% if next_entry %}
+          <a href="{{ site.github.url }}{{ next_entry.url }}" class="next-entry">{{ next_entry.title }} &rarr;</a>
+        {% endif %}
+      </section>
+    {% endif %}
+  </aside>
 </div>

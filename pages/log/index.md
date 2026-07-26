@@ -2,6 +2,7 @@
 layout: log-index
 title: "Log"
 permalink: /log/
+key: log
 ---
 
 A running log of what I'm building, per project. Each project has its own index and a chronological trail of dated entries.
