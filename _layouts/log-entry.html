@@ -30,6 +30,30 @@ layout: default
         <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
       </div>
     {% endif %}
+    {% if page.model %}
+      <div class="model-viewer"
+           data-model="{{ site.github.url }}/assets/models/{{ page.model }}"
+           {% if page.model_preview %}data-preview="{{ site.github.url }}/assets/img/{{ page.model_preview }}"{% endif %}>
+        <canvas class="model-viewer-canvas"></canvas>
+        <noscript>
+          {% if page.model_preview %}
+            <img src="{{ site.github.url }}/assets/img/{{ page.model_preview }}" alt="Static render of the 3D model" class="model-viewer-fallback-image">
+          {% endif %}
+        </noscript>
+      </div>
+      {% if page.model_attribution %}
+        <p class="model-viewer-attribution">{{ page.model_attribution }}</p>
+      {% endif %}
+      <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.185.1/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.185.1/examples/jsm/"
+        }
+      }
+      </script>
+      <script type="module" src="{{ site.github.url }}/assets/js/model-viewer.js"></script>
+    {% endif %}
     <article>
       {{ content }}
     </article>

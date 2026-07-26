@@ -132,3 +132,91 @@ built exactly as proposed, no changes.
 - Verified via local `bundle exec jekyll build`: all five touched layouts compile and
   render correctly, sidebar gracefully empty/hidden where there's no data yet (e.g.
   0-entry project stats, no-relations pages).
+
+## [From Studio] Multimedia & interactivity round (2026-07-26)
+
+Design rule for visual/interactive elements going forward: real artifacts only —
+everything rendered must be something Satya actually made (his configs, his meshes,
+his data). No decorative widgets; Spotify/API embeds and word clouds were killed in
+review. Four items approved in build order: code snippet styling, figure/caption
+treatment, and a `/log/website` category scaffold (build now — all three below); an
+STL viewer (flagship — proposal first, build after Studio reacts, not built yet).
+Parked, second wave, don't build or design around yet: a Pi-fed telemetry/status panel,
+a dual-track Who I Am timeline.
+
+### [From Workshop] Implementation status (2026-07-26)
+
+- **Code snippets**: `_sass/_code.scss` rewritten to map Rouge's token classes onto the
+  site's existing Monokai palette variables (`_home.scss`) instead of a separate
+  hardcoded theme — same greens/pinks/purples as the rest of the UI. Removed a stray
+  `code, pre { color: $code-font-color; }` rule from `assets/css/main.scss` that
+  pre-dated this and would've fought Rouge's per-token spans. Checked WCAG contrast of
+  every token color against the new `$code-background` (`#49483e`, a distinct-but-related
+  panel shade, not `$post-background`); the operator/tag color (`$brand-color`, pink) and
+  the number color (`$post-title-color`, purple) were too low (2.4:1 / 3.2:1), so those
+  two use `lighten()` variants (same pattern already used for hover states in
+  `_home.scss`) — now 4.1:1 and 5.1:1. Comment color is intentionally low-contrast
+  (~1.9:1) — that's stock Monokai's own convention for de-emphasizing comments, not a gap.
+  Inline code (`` `like this` ``) and unspecified-language fences share the same styling
+  automatically, since kramdown routes both through Rouge's plaintext lexer.
+  **Finding for Satya**: Rouge has no G-code/Klipper lexer — a fenced block tagged
+  ` ```gcode ` silently falls back to a bare, unhighlighted `<pre><code>` (verified via
+  test build). `ini` is the closest existing lexer for `.cfg`-style sections; for
+  macro/G-code listings, leaving the language tag off (plain fence) is probably better
+  than a wrong/absent language tag, since both get the same styled dark treatment.
+- **Figure/caption**: new `_includes/figure.html` (`{% include figure.html src=".."
+  alt=".." caption=".." %}`) emits `<figure class="post-figure"><img><figcaption>`.
+  Styled in new `_sass/_figure.scss`: image stays full-width (existing wide-media rule
+  on `.post-content`/`.page-content img` already covers the nested `<img>`), caption
+  text is pulled back to the 900px narrow-prose column and de-emphasized — reuses the
+  existing wide-media/narrow-prose split rather than introducing a new one.
+- **`/log/website`**: scaffolded `pages/log/website.md` (layout `log-project`, category
+  `website`) with a placeholder line matching the existing convention (see `ventures.md`,
+  `electronics.md`) — copy is Satya's to write. Added to the nav list in
+  `pages/log/index.md`. No `_log` entries yet, so it won't appear in the homepage
+  teaser or recent-entries lists until he writes one — the jump-list/log-index sidebar
+  (built in the sidebar round) picks it up automatically either way, no template changes
+  needed.
+- STL viewer: approved as proposed (2026-07-26), with one note for later — once the
+  flagship (speaker cabinet, Satya's own design) ships, `model_attribution` should read
+  as a design credit ("Designed by Satya, 2025") rather than a license line; the field
+  is generic caption text, not license-specific, so this needs no template change, just
+  different copy per entry.
+
+### [From Workshop] STL viewer implementation status (2026-07-26)
+
+- Built per the approved proposal: `three@0.185.1` pinned via a native ES-module
+  `importmap` (version confirmed current against unpkg's package.json), loaded only
+  inside the `{% if page.model %}` block in `log-entry.html` — pages without a
+  declared model carry zero extra bytes, not even the inert importmap.
+  `assets/js/model-viewer.js` is a plain, cacheable module (not Liquid-templated) that
+  auto-initializes any `.model-viewer` element it finds via `data-model`/`data-preview`
+  attributes: WebGLRenderer + OrbitControls (damped, auto-rotate unless
+  `prefers-reduced-motion`), STLLoader loads the mesh, centers/scales it to fit,
+  rotates -90° on X (STLs from slicers/CAD are Z-up; Three.js is Y-up). Falls back to
+  the static preview image — via `showFallback()` — on WebGL init failure or a failed
+  mesh fetch, same path as the `<noscript>` case.
+- Front matter, one filename convention with the site's existing `image:` field (bare
+  filename, template fills in the directory) rather than the full paths in the original
+  proposal text: `model: 3dbenchy.stl` → `/assets/models/`, `model_preview: name.png` →
+  `/assets/img/` (reused, no new directory). `model_attribution` is plain caption text,
+  no forced "License:" wording, so it doubles as a design credit later per the note
+  above.
+  ```yaml
+  model: 3dbenchy.stl
+  model_attribution: "3DBenchy by CreativeTools.se, CC BY-ND 4.0"
+  model_preview: 3dbenchy-render.png
+  ```
+- CSS (`_sass/_model-viewer.scss`) reuses `$code-background` for the canvas panel
+  rather than introducing a third dark shade.
+- No browser tooling was available in the session that built this (Claude in Chrome
+  wasn't connected, machine has no node/chromium for a headless check), so the initial
+  pass only verified the pipeline mechanically — correct URLs, CDN importmap, 200s from
+  `jekyll serve` for the JS/mesh, compiled CSS — not actual WebGL rendering. Satya then
+  added the real `assets/models/3dbenchy.stl` (11.3MB, 225,786 triangles — a valid
+  binary STL despite the cosmetic `solid Shape0` text at the header; well above the
+  ~5MB soft budget, likely a high-res export, fine for a one-off pipeline test but
+  worth watching if the flagship model runs similarly heavy) plus a reference entry,
+  `_log/2026-07-26-stl-viewer-pipeline-test.md` (`categories: [website]`), and confirmed
+  in his own browser via `jekyll serve` that it renders and rotates. Rendering/rotation
+  now confirmed working end-to-end, not just the pipeline around it.
