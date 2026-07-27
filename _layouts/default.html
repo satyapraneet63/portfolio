@@ -9,5 +9,8 @@
       </div>
       {% include footer.html %}
     </div>
+    {% if content contains 'sidenote-marker' %}
+      <script src="{{ site.github.url }}/assets/js/sidenotes.js"></script>
+    {% endif %}
   </body>
 </html>

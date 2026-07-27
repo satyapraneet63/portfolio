@@ -183,6 +183,86 @@ a dual-track Who I Am timeline.
   is generic caption text, not license-specific, so this needs no template change, just
   different copy per entry.
 
+## [From Studio] Design toolkit principle (2026-07-27)
+
+Standing design rule: this site uses a **toolkit, not a template** — different content
+types get different treatment, deliberately, rather than one layout applied uniformly.
+A tool earns its place on a specific page because that page's content needs it, never
+applied site-wide for consistency's sake. This is also why the site won't feel
+templated — no two entries are structurally identical. Current mapping, not exhaustive
+— new tools get added as content demands them, not preemptively:
+
+- STL viewer — 3D printing / physical-object entries where a model exists.
+- Code snippets, syntax-highlighted — anywhere code/config is discussed.
+- Collages — Art entries.
+- Photos — personal/narrative pages (Who I Am, No Fixed Point).
+- GIFs/video/links — process documentation, examples, demonstrations.
+- Tufte-style margin sidenotes — technical entries with genuine asides (specs, dated
+  corrections, tangents).
+- Side-by-side code + explanation — build-log entries walking through a decision.
+- Horizontal image/comparison strips — before/after, build sequences.
+
+Parked, log for later reminder — not blocking anything now: subtle scroll-triggered
+fade/slide-in on entry elements (`IntersectionObserver` + CSS transition), respecting
+`prefers-reduced-motion`. Genuinely feasible on this stack, just not urgent — revisit
+once there's enough real content that entries feel static without it, rather than
+adding motion to placeholder-thin pages.
+
+### [From Workshop] Toolkit pilot shipped: code-compare + sidenote (2026-07-27)
+
+Piloted on `/log/website`, now approved and confirmed working in-browser (Satya
+checked in Zen). Both are general-purpose includes, available for any future Log
+entry or page per the toolkit principle above — not scoped to that one page.
+
+- **`{% include code-compare.html %}`** (`_includes/code-compare.html`,
+  `_sass/_code-compare.scss`) — side-by-side explanation/code, flex two-column,
+  collapses to stacked below `$container-breakpoint` (1100px). Usage: build each side
+  as markdown via `{% capture %}` + `{% assign ... | markdownify %}`, then pass the
+  resulting HTML strings in as `explanation=`/`code=` params — this lets fenced code
+  blocks go through the normal Rouge/kramdown pipeline before landing in the include.
+  Not scoped to the 900px narrow-prose column (same wide-media treatment as figures).
+- **`{% include sidenote.html number="N" text="..." %}`** (`_includes/sidenote.html`,
+  `_sass/_sidenote.scss`, `assets/js/sidenotes.js`) — Tufte-style margin note, authored
+  inline in a paragraph. Went through two design revisions before landing: an initial
+  version floated directly out of the prose column, but the prose cap (900px) plus the
+  sidebar (220px) plus $container-width's clamped max (1440px) leaves at most ~240px of
+  slack for that to work with, at any viewport, however wide — genuinely never enough
+  room, not just a sizing bug. Redesigned to merge into the *shared sidebar rail*
+  instead: the note authors inline as before, but a small dependency-free script
+  (`assets/js/sidenotes.js`) measures its trigger paragraph's position and absolutely
+  positions it into the same column as the page's existing sidebar content (cross-
+  links, stats, etc.), clamped to never overlap that static content or other sidenotes
+  above it. No-JS default is a plain in-flow block right where it's authored — safe,
+  correct, zero layout risk, same fallback-first principle as the STL viewer. Only
+  activates at the same breakpoint the sidebar itself uses (1100px) — below that,
+  `.content-layout` is already stacked, so there's no separate rail to position into.
+  Script loads conditionally (`{% if content contains 'sidenote-marker' %}` in
+  `_layouts/default.html`) — zero extra bytes on pages that don't use one.
+  The clamping/collision logic (multiple sidenotes stacking against each other and
+  against static sidebar content) was verified with a standalone logic test against
+  mocked DOM geometry, not just eyeballed — real layout/rendering was then confirmed
+  separately in-browser.
+
+## [From Studio] Sass deprecation backlog (2026-07-27)
+
+Two separate items surfaced in `jekyll serve` build output, both warnings-only against
+a future Dart Sass version — current build unaffected, neither is urgent, but sized
+honestly rather than lumped as one cleanup pass:
+
+- **`lighten()` → `color.adjust()`/`color.scale()`**: small, mechanical. 6 call sites —
+  `_sass/_code.scss` (3) and `assets/css/main.scss` (3). Swap `lighten($x, N%)` for
+  `color.adjust($x, $lightness: N%)` (Dart Sass's own suggested equivalent), no design
+  decisions involved. Fine to batch whenever convenient.
+- **`@import` → `@use`/`@forward`**: real structural work, not a syntax swap. `@import`
+  shares one implicit global scope across every partial, which is exactly why
+  9 of the 13 files under `_sass/` (`_base`, `_code`, `_code-compare`, `_default`,
+  `_footer`, `_header`, `_post`, `_sidebar`, `_sidenote`) can reference variables like
+  `$container-width`/`$brand-color` with zero setup — they're all just relying on
+  `main.scss`'s definitions being globally visible. `@use` is explicitly scoped, so this
+  means extracting those variables into their own forwarded partial and adding a
+  correctly-namespaced `@use` to each of those 9 files, not a one-line change per file.
+  Worth scoping as its own task when it's picked up, not folded into the `lighten()` swap.
+
 ### [From Workshop] STL viewer implementation status (2026-07-26)
 
 - Built per the approved proposal: `three@0.185.1` pinned via a native ES-module

@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 /*
   Shared .content-layout / .sidebar structure used by page.html,
   log-entry.html, log-project.html and log-index.html. Each layout
@@ -7,6 +9,9 @@
   display: flex;
   align-items: flex-start;
   gap: 40px;
+  // Positioning context for .sidenote--positioned (sidenotes.js), which
+  // anchors itself into the .sidebar column via absolute positioning.
+  position: relative;
 }
 .content-layout > .page-content,
 .content-layout > .post-content {

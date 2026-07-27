@@ -1,0 +1,42 @@
+// Site-wide variables, forwarded to every partial that needs them via
+// `@use "variables" as *;`. Previously lived at the top of main.scss and
+// were reachable implicitly through @import's shared global scope; @use
+// requires each dependent file to opt in explicitly instead.
+$base-font-family: 'JetBrains Mono', monospace;
+$body-font-family: 'JetBrains Mono', monospace;
+$code-font-family: "Source Code Pro", monospace;
+
+/*$brand-color: black;*/
+
+$body-background: #272822;
+$text-color: #F8F8F2;
+$brand-color: #F92672;
+$link-color: #66D9EF;
+$code-font-color: #A6E22E;
+$post-background: #3E3D32;
+$title-color: #E6DB74;
+$container-width: clamp(1000px, 72vw, 1440px);
+$container-breakpoint: 1100px;
+$tablet-width: 600px;
+$phone-width: 480px;
+$post-title-color: #AE81FF;
+
+$header-thickness: 56px;
+
+$icon-transition-time: 0.5s;
+$envelope-color: #f39c12;
+$twitter-color: #00aced;
+$instagram-color: #375989;
+$github-color: #343434;
+$linkedin-color: #0073a4;
+$facebook-color: #3d5b99;
+$google-color: #e64a41;
+$pinterest-color: #bd081c;
+$medium-color: #00AB6C;
+$codepen-color: black;
+$rss-color: #ff6600;
+
+// Shared with the code-block styling (_code.scss); also reused by
+// _model-viewer.scss and _sidenote.scss for their own dark panels.
+$code-background: #49483e;
+$code-comment-color: #75715e;

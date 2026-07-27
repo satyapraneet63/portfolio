@@ -1,0 +1,39 @@
+@use "variables" as *;
+
+// Tufte-style margin sidenotes, for genuine asides on technical entries
+// (specs, dated corrections, tangents) rather than the main line of the
+// argument. Default state (below) is also the permanent no-JS fallback:
+// a plain in-flow block, right where it's authored in the text — safe,
+// always correct, zero layout risk. sidenotes.js progressively enhances
+// wide-viewport pages by adding .sidenote--positioned and an inline `top`,
+// absolutely positioning the note into the shared .sidebar rail aligned
+// with its trigger paragraph. No JS, no enhancement — same principle as
+// the STL viewer's static-image fallback.
+.sidenote-marker {
+  vertical-align: super;
+  font-size: 0.7em;
+  line-height: 0;
+  color: $link-color;
+}
+.sidenote {
+  display: block;
+  margin: 0.8em 0;
+  padding: 8px 0 8px 12px;
+  border-left: 2px solid $code-background;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+.sidenote > .sidenote-marker {
+  margin-right: 4px;
+}
+
+// Applied by sidenotes.js once it has computed a valid position; `top`
+// and `width` are set inline by the script (width matches .sidebar, 220px).
+.sidenote--positioned {
+  position: absolute;
+  right: 0;
+  margin: 0;
+  padding-left: 10px;
+  font-size: 0.78rem;
+}

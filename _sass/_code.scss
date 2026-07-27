@@ -1,8 +1,11 @@
+@use "sass:color";
+@use "variables" as *;
+
 // Rouge token colors mapped onto the site's existing Monokai palette
 // (defined in _home.scss) rather than a separate hardcoded theme, so
 // highlighted code shares the same colors as the rest of the UI.
-$code-background: #49483e;
-$code-comment-color: #75715e;
+// $code-background/$code-comment-color now live in _variables.scss —
+// _model-viewer.scss and _sidenote.scss also depend on them.
 
 code,
 pre {
@@ -112,17 +115,17 @@ pre code {
 // Raised above raw $brand-color (2.4:1 on $code-background) the same way
 // hover states elsewhere in the site derive a lighter variant of it.
 .highlight .kn, .highlight .ow, .highlight .o {
-  color: lighten($brand-color, 20%);
+  color: color.adjust($brand-color, $lightness: 20%);
   font-weight: bold;
 }
 .highlight .nt {
-  color: lighten($brand-color, 20%);
+  color: color.adjust($brand-color, $lightness: 20%);
 }
 // Raised above raw $post-title-color (3.2:1 on $code-background).
 .highlight .m, .highlight .mb, .highlight .mx, .highlight .mf,
 .highlight .mh, .highlight .il, .highlight .mi, .highlight .mo,
 .highlight .se {
-  color: lighten($post-title-color, 10%);
+  color: color.adjust($post-title-color, $lightness: 10%);
 }
 .highlight .s, .highlight .dl, .highlight .sb, .highlight .sc,
 .highlight .sd, .highlight .s2, .highlight .sh, .highlight .si,

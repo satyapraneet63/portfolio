@@ -1,0 +1,34 @@
+@use "variables" as *;
+
+// Side-by-side code + explanation, for Log entries walking through a
+// decision. Not scoped to the 900px narrow-prose column (same "wide media"
+// treatment as figures/images) since two columns need the full width to
+// be worth doing. Collapses to stacked below $container-breakpoint, same
+// pattern as .content-layout.
+.code-compare {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  margin: 20px 0;
+}
+.code-compare-explanation,
+.code-compare-code {
+  flex: 1;
+  min-width: 0;
+}
+.code-compare-explanation p:last-child {
+  margin-bottom: 0;
+}
+.code-compare-code pre {
+  margin-bottom: 0.75rem;
+}
+.code-compare-code pre:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: $container-breakpoint) {
+  .code-compare {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

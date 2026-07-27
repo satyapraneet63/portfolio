@@ -1,14 +1,18 @@
-// Importing Sass/SCSS partials from `sass_dir` (defaults to `_sass`)
-@import "base",
-        "code",
-        "default",
-        "figure",
-        "footer",
-        "header",
-        "home",
-        "model-viewer",
-        "page",
-        "post",
-        "sidebar",
-        "social-icons";
+// Forwarding Sass/SCSS partials from `sass_dir` (defaults to `_sass`).
+// @forward re-exports each partial's plain CSS rules, so `@use`-ing this
+// file from main.scss emits all of them, same as the old @import list did.
+@forward "base";
+@forward "code";
+@forward "code-compare";
+@forward "default";
+@forward "figure";
+@forward "footer";
+@forward "header";
+@forward "home";
+@forward "model-viewer";
+@forward "page";
+@forward "post";
+@forward "sidebar";
+@forward "sidenote";
+@forward "social-icons";
 // SCSS files roughly correspond to HTML files in _includes and _layouts

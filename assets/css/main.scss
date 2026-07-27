@@ -1,41 +1,9 @@
 ---
 ---
 
-$base-font-family: 'JetBrains Mono', monospace;
-$body-font-family: 'JetBrains Mono', monospace;
-$code-font-family: "Source Code Pro", monospace;
-
-/*$brand-color: black;*/
-
-$body-background: #272822;
-$text-color: #F8F8F2;
-$brand-color: #F92672;
-$link-color: #66D9EF;
-$code-font-color: #A6E22E;
-$post-background: #3E3D32;
-$title-color: #E6DB74;
-$container-width: clamp(1000px, 72vw, 1440px);
-$container-breakpoint: 1100px;
-$tablet-width: 600px;
-$phone-width: 480px;
-$post-title-color: #AE81FF;
-
-$header-thickness: 56px;
-
-$icon-transition-time: 0.5s;
-$envelope-color: #f39c12;
-$twitter-color: #00aced;
-$instagram-color: #375989;
-$github-color: #343434;
-$linkedin-color: #0073a4;
-$facebook-color: #3d5b99;
-$google-color: #e64a41;
-$pinterest-color: #bd081c;
-$medium-color: #00AB6C;
-$codepen-color: black;
-$rss-color: #ff6600;
-
-@import "-sections-dir";
+@use "sass:color";
+@use "variables" as *;
+@use "-sections-dir";
 
 body, html {
   background-color: $body-background;
@@ -47,7 +15,7 @@ a {
 }
 
 a:hover {
-  color: lighten($link-color, 20%);
+  color: color.adjust($link-color, $lightness: 20%);
 }
 
 .post-container {
@@ -69,7 +37,7 @@ a:hover {
   color: $brand-color;
 }
 .site-header a.menu-link:hover {
-  color: lighten($brand-color, 15%);
+  color: color.adjust($brand-color, $lightness: 15%);
 }
 .site-header a.menu-link.active {
   color: $title-color;
@@ -107,7 +75,7 @@ a:hover {
 
 .dropdown-content a:hover, .dropdown-content a:focus {
   background-color: $post-background;
-  color: lighten($brand-color, 20%)
+  color: color.adjust($brand-color, $lightness: 20%)
 }
 .dropdown-content a.active {
   color: $title-color;
