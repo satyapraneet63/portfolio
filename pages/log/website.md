@@ -15,14 +15,18 @@ What follows is the record of turning it into an actual decision.
 
 | When | What happened |
 |---|---|
-| 2025-10-04 – 2026-01-25 | Site live on Millennial theme, GitHub Pages, minimal content |
-| 2026-07-23, 00:49 | Decided the skeleton: dated logs instead of living pages, a spine page instead of a flat "About" |
-| 2026-07-23, 01:29 | Wrote the spine — realized the story wasn't "engineer becomes designer," it was two timelines running through the same five years |
-| 2026-07-23, 22:41 | Resume rewritten alongside it — same reframe, different document |
-| 2026-07-23, 22:41 | Diagnosed why every page felt cramped despite a palette and font I already liked: two hardcoded widths, independent of the actual page width |
-| 2026-07-23, 22:41 | Fixed both fluidly instead of flatly — `clamp()` and a real prose cap instead of one flat pixel value doing both jobs badly |
-| 2026-07-26, 21:47 | Built the sidebar system — one structure, four different jobs depending on page type |
-| 2026-07-26, 23:35 | Multimedia pass — syntax-highlighted code, captioned figures, a client-side STL viewer |
+| 2025-10 – 2026-01 | Site live on Millennial theme, GitHub Pages, minimal content |
+| 2026-07-23 | Decided the skeleton: dated logs instead of living pages, a spine page instead of a flat "About" |
+| 2026-07-23| Wrote the spine — realized the story wasn't "engineer becomes designer," it was two timelines running through the same five years |
+| 2026-07-23 | Resume rewritten alongside it — same reframe, different document |
+| 2026-07-21 | Diagnosed why every page felt cramped despite a palette and font I already liked: two hardcoded widths, independent of the actual page width |
+| 2026-07-21 | Fixed both fluidly instead of flatly — `clamp()` and a real prose cap instead of one flat pixel value doing both jobs badly |
+| 2026-07-27 | Built the sidebar system — one structure, four different jobs depending on page type |
+| 2026-07-25 | Multimedia pass — syntax-highlighted code, captioned figures, a client-side STL viewer |
+| 2026-07-27 | Named the site's actual design philosophy: a toolkit, not a template — different content gets different treatment on purpose, nothing applied uniformly for consistency's sake |
+| 2026-07-27 | Piloted two new tools directly on this page: side-by-side code/explanation blocks, and Tufte-style margin sidenotes |
+| 2026-07-27 | Found the sidenote had nowhere to actually breathe — did the box-model math and discovered the margin's hard ceiling is 240px at any screen width, wide monitor or not |
+| 2026-07-27 | Rebuilt the sidenote to live in the same column as the page's cross-links instead of fighting it for space — position computed live, so it lines up with whatever paragraph it's attached to |
 
 This table used to be mostly gaps — I hadn't logged the site's build day by day while it happened, and was reconstructing it after the fact from memory. The dates above are pulled straight from git history instead, which is a better record than my memory of "sometime in July." That gap is itself the argument for *dated entries* over *living pages*: a living page like this one can always be rewritten to sound like I had a plan. A dated entry, written the day something broke, can't lie about that — and neither can a commit timestamp.
 
@@ -81,6 +85,13 @@ Same commit, same evening: the homepage stopped being a dead pagination loop ove
 
 I didn't write this CSS alone. I work with two Claude instances split by role — one (this one, "Studio") for editorial and design judgment, one ("Workshop," in the terminal via Claude Code) for implementation, sitting in the actual repo. The division mattered more than I expected: Studio never touches the codebase, Workshop never invents content. Decisions get handed across in short, dated notes — `[From Studio]`, `[From Workshop]` — which is, not coincidentally, the same discipline as the dated-log structure I chose for the rest of the site. The website turned out to be documenting its own process for free, just by how I chose to build it.
 
+## Building the toolkit, on this very page
+
+Two of the entries in the timeline above happened on this page, about this page — which means if you're reading this on a wide enough screen, you're probably already looking at the result. The boxes to the right of this section, and the two-column blocks further up showing the CSS before and after, aren't illustrations. They're the actual first uses of the patterns being described.
+
+That wasn't the plan going in. I asked for a way to use more of the screen's width — closer to how [Amelia Wattenberger's site](https://wattenberger.com/) or [Bartosz Ciechanowski's](https://ciechanow.ski/) feel dense without feeling cluttered — and the cheapest way to test whether a new layout pattern actually works is to build it against real content that already exists, rather than invent a demo for it. This page had both: code changes worth comparing side by side, and a tangent (a header bug, unrelated to the main fix) that was exactly the kind of aside a margin note exists for.
+
+The sidenote took two tries. The first version floated directly out of the text column, and it looked cramped on every screen I checked, including a 2560px monitor where I expected it to have room to spare. The actual constraint turned out to be simpler and more permanent than a sizing mistake: once you account for the prose column's own cap and the container's absolute maximum width, the space left over for a margin note tops out at 240px — on *any* screen, because the container itself stops growing past a certain point on purpose, to keep the text readable. No screen was ever going to be wide enough to fix that version. The fix wasn't a bigger number. It was giving the sidenote a different address entirely — the same column that already holds the page's cross-links, rather than a separate patch of margin that was never big enough to begin with.
 ## What I stole, and from whom
 
 None of this happened in a vacuum. Some of it is directly traceable:
