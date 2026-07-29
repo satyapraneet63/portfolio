@@ -26,6 +26,18 @@ title:		           "Satya Praneet Challapilla"
 description:	       "A record of my interests and personality"
 author:              "Satya Praneet Challapilla"
 
-# RSS 2.0 can be used instead of Atom by uncommenting following two lines
-#feed:
-#  path: rss-feed.xml
+# Unified feed sourced from the log collection (not split by project/category).
+# jekyll-feed always generates a "posts" feed too regardless of config below; since
+# _posts is permanently empty post-migration, it's pinned to its own harmless path
+# so it can't collide with (and silently overwrite) the real feed at /feed.xml.
+# `path` must also be set at the top level: jekyll-feed's {% feed_meta %} tag only
+# ever reads this top-level key, and its generator back-fills it from the "posts"
+# collection's path if left unset here — which would silently repoint feed_meta
+# at the empty posts-legacy feed instead of the real one.
+feed:
+  path: /feed.xml
+  collections:
+    log:
+      path: /feed.xml
+    posts:
+      path: /feed/posts-legacy.xml
