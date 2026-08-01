@@ -263,6 +263,15 @@ honestly rather than lumped as one cleanup pass:
   correctly-namespaced `@use` to each of those 9 files, not a one-line change per file.
   Worth scoping as its own task when it's picked up, not folded into the `lighten()` swap.
 
+### [From Workshop] Sass backlog resolved (2026-07-27, confirmed 2026-07-29)
+
+Both items above are done — commit `0d80f5a` ("Ship code-compare/sidenote toolkit
+pilot; migrate Sass to @use/@forward"). All 6 `lighten()` call sites now use
+`color.adjust($x, $lightness: N%)`; every `_sass/` partial uses `@use`/`@forward`
+instead of `@import`, with shared variables extracted into `_sass/_variables.scss`
+and forwarded via `_-sections-dir.scss`. No `@import` remains anywhere in `_sass/`
+or `assets/css/main.scss`. This backlog is closed.
+
 ### [From Workshop] STL viewer implementation status (2026-07-26)
 
 - Built per the approved proposal: `three@0.185.1` pinned via a native ES-module
