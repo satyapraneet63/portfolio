@@ -7,6 +7,15 @@
   box-shadow: 0 5px 6px -6px #bbb;
   z-index: 100;
 }
+// Clearfix: .site-title/.menu-list below are floated, and without this
+// .site-header collapses to min-height when the nav wraps to 2+ lines,
+// letting the overflowing float squeeze the width of every block that
+// follows it in the document (not just clip visually inside the header).
+.site-header::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .site-header a {
   text-decoration: none;
 }
